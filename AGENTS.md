@@ -2,10 +2,7 @@
 
 学習用のシンプルな Todo アプリ。
 
-## 役割分担
-
-- 設計の相談（壁打ち）: Claude Code
-- 実装: Codex
+## 進め方
 
 合意した設計に沿って実装する。設計にない判断（仕様の追加・変更、構成の変更など）が必要になったら、実装を進めずに確認すること。
 
@@ -29,6 +26,7 @@ supabase start                 # ローカル Supabase 起動
 supabase stop                  # 停止
 supabase db reset              # migrations と seed を再適用
 supabase migration new <name>  # migration ファイル作成
+supabase gen types typescript --local > src/types/database.ts  # 型生成
 ```
 
 ## ディレクトリ構成
@@ -41,14 +39,21 @@ supabase migration new <name>  # migration ファイル作成
 ## 実装ルール
 
 - Next.js の API は学習データを当てにせず、`node_modules/next/dist/docs/` か Context7 で確認する
+- Next.js 以外のライブラリの API が不確かなときも Context7 で確認する
 - Server Components を基本にし、`"use client"` は必要な箇所だけに付ける
 - スタイリングは Tailwind で行う
 - 依存パッケージを追加するときは理由を説明する
+- データ取得は Server Components で行い、必要なデータを Client Components に props で渡す
+- コンポーネント、関数などはそれらが使用されるコンポーネントのできる限り近くに置き、コロケーションに従う
+- ファイル名: ケバブケース(evaluation-section.tsx)
+- コンポーネント名: パスカルケース(EvaluationSection)
+- 関数名: キャメルケース(getEvaluation)
+- 型定義は type で統一する(interface は使わない)
 
 ## Supabase 運用
 
 - スキーマ変更は必ず migration ファイルで行う（Studio で直接変更しない）
-- テーブルには RLS を有効にする
+- テーブルには RLS を有効にする。認証がないため、現時点では練習用として全許可ポリシーを置く（認証追加時に差し替える）
 - API キーなどの秘密情報や `.env*` はコミットしない
 
 ## Git 規約
