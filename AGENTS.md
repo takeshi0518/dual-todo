@@ -1,3 +1,70 @@
+# dual-todo
+
+学習用のシンプルな Todo アプリ。
+
+## 進め方
+
+合意した設計に沿って実装する。設計にない判断（仕様の追加・変更、構成の変更など）が必要になったら、実装を進めずに確認すること。
+
+## 技術スタック
+
+- Next.js 16.3（App Router）/ React 19.2 / TypeScript
+- React Compiler 有効（`next.config.ts`）: `useMemo` / `useCallback` / `memo` を手で書かない
+- Tailwind CSS v4
+- ESLint 9（flat config, `eslint.config.mjs`）
+- Supabase（ローカル開発は Supabase CLI + Docker）
+- パッケージマネージャ: npm
+
+## コマンド
+
+```bash
+npm run dev      # 開発サーバー
+npm run build    # 本番ビルド
+npm run lint     # Lint
+
+supabase start                 # ローカル Supabase 起動
+supabase stop                  # 停止
+supabase db reset              # migrations と seed を再適用
+supabase migration new <name>  # migration ファイル作成
+supabase gen types typescript --local > src/types/database.ts  # 型生成
+```
+
+## ディレクトリ構成
+
+- `src/app/` — App Router のページ・レイアウト
+- `supabase/config.toml` — ローカル Supabase 設定
+- `supabase/migrations/` — スキーマ変更（migration ファイル）
+- import エイリアス: `@/*` → `./src/*`
+
+## 実装ルール
+
+- Next.js の API は学習データを当てにせず、`node_modules/next/dist/docs/` か Context7 で確認する
+- Next.js 以外のライブラリの API が不確かなときも Context7 で確認する
+- Server Components を基本にし、`"use client"` は必要な箇所だけに付ける
+- スタイリングは Tailwind で行う
+- 依存パッケージを追加するときは理由を説明する
+- データ取得は Server Components で行い、必要なデータを Client Components に props で渡す
+- コンポーネント、関数などはそれらが使用されるコンポーネントのできる限り近くに置き、コロケーションに従う
+- ファイル名: ケバブケース(evaluation-section.tsx)
+- コンポーネント名: パスカルケース(EvaluationSection)
+- 関数名: キャメルケース(getEvaluation)
+- 型定義は type で統一する(interface は使わない)
+
+## Supabase 運用
+
+- スキーマ変更は必ず migration ファイルで行う（Studio で直接変更しない）
+- テーブルには RLS を有効にする。認証がないため、現時点では練習用として全許可ポリシーを置く（認証追加時に差し替える）
+- API キーなどの秘密情報や `.env*` はコミットしない
+
+## Git 規約
+
+- ブランチ名: `<type>/<topic>`（例: `feat/todo-list`, `chore/setup`）
+- コミットメッセージ: Conventional Commits の type + 日本語の説明（例: `feat: Todo一覧を表示`）
+
+## 完了条件
+
+- `npm run lint` と `npm run build` が通ること
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
