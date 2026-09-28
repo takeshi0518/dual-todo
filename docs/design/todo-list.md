@@ -113,7 +113,7 @@
 - [ ] Checkbox・タイトルをクリックしてもチェック状態が変わらない
 - [ ] 各カードの右端にゴミ箱アイコンの削除ボタンが表示される。クリックしても何も起きず、Checkbox の状態も変わらない
 - [ ] 長いタイトル（100 文字）でも折り返され、削除ボタンが右端からはみ出さない
-- [ ] SQL Editor で `delete from todos;` → リロードで「Todoがありません」が出る（見出し「Todo」は表示されたまま）（確認後に `supabase db reset`）
+- [ ] SQL Editor で `delete from todos;` → リロードで「Todo がありません」が出る（見出し「Todo」は表示されたまま）（確認後に `supabase db reset`）
 - [ ] `supabase stop` した状態でアクセス → error.tsx の画面が出る。`supabase start` 後に「再試行」で一覧が表示される
 - [ ] `npm run db:types` で `src/types/database.ts` が更新され、差分が出ない
 - [ ] `npm run lint` と `npm run build` が通る
