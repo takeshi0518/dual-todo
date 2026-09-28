@@ -9,3 +9,12 @@ export const todoSchema = z.object({
 });
 
 export type TodoInput = z.infer<typeof todoSchema>;
+
+export const toggleTodoSchema = z.object({
+  id: z.uuid(),
+  isCompleted: z.boolean(),
+});
+
+export const deleteTodoSchema = z.object({
+  id: z.uuid(),
+});
