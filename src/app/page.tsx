@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { TodoForm } from "./_components/todo-form";
 import { TodoList } from "./_components/todo-list";
 
 export default async function Home() {
@@ -13,8 +14,9 @@ export default async function Home() {
   }
 
   return (
-    <main className="mx-auto max-w-xl p-6">
+    <main className="mx-auto flex max-w-xl flex-col gap-6 p-6">
       <h1>Todo</h1>
+      <TodoForm />
       <TodoList todos={todos} />
     </main>
   );
