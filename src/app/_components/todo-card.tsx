@@ -1,10 +1,9 @@
-import { Trash2Icon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import type { Tables } from "@/types/database";
+import { DeleteTodoButton } from "./delete-todo-button";
+import { TodoCheckbox } from "./todo-checkbox";
 
 export type Todo = Pick<
   Tables<"todos">,
@@ -20,7 +19,7 @@ export function TodoCard({ todo }: TodoCardProps) {
     <Card size="sm">
       <CardContent className="flex items-center gap-3">
         <Label className="min-w-0 flex-1">
-          <Checkbox checked={todo.is_completed} readOnly />
+          <TodoCheckbox id={todo.id} isCompleted={todo.is_completed} />
           <span
             className={cn(
               "break-words",
@@ -30,14 +29,7 @@ export function TodoCard({ todo }: TodoCardProps) {
             {todo.title}
           </span>
         </Label>
-        <Button
-          aria-label="削除"
-          size="icon-sm"
-          type="button"
-          variant="ghost"
-        >
-          <Trash2Icon />
-        </Button>
+        <DeleteTodoButton id={todo.id} />
       </CardContent>
     </Card>
   );
